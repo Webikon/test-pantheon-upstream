@@ -38,7 +38,10 @@
     "vlucas/phpdotenv": "^2.0.1",
     "johnpbloch/wordpress": "4.9.4",
     "oscarotero/env": "^1.1.0",
-    "roots/wp-password-bcrypt": "1.0.0"
+    "roots/wp-password-bcrypt": "1.0.0",
+    "rvtraveller/qs-composer-installer": "^1.1",
+    "wpackagist-plugin/pantheon-advanced-page-cache": "*",
+    "wpackagist-plugin/wp-native-php-sessions": "0.*"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.0.2"
@@ -47,13 +50,31 @@
     "installer-paths": {
       "web/app/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
       "web/app/plugins/{$name}/": ["type:wordpress-plugin"],
-      "web/app/themes/{$name}/": ["type:wordpress-theme"]
+      "web/app/themes/{$name}/": ["type:wordpress-theme"],
+      "web/private/scripts/quicksilver/{$name}/": ["type:quicksilver-script"]
     },
     "wordpress-install-dir": "web/wp"
   },
   "scripts": {
     "post-root-package-install": [
       "php -r \"copy('.env.example', '.env');\""
+    ],
+    "cleanup": [
+      "./scripts/composer/cleanup-composer"
+    ],
+    "prepare-for-pantheon": "WordPressProject\\composer\\ScriptHandler::prepareForPantheon",
+    "post-install-cmd": [
+      "@cleanup",
+      "WordPressProject\\composer\\ScriptHandler::createRequiredFiles",
+      "php -r \"copy('.env.pantheon', '.env');\""
+    ],
+    "post-update-cmd": [
+      "@cleanup",
+      "WordPressProject\\composer\\ScriptHandler::createRequiredFiles"
+    ],
+    "post-create-project-cmd": [
+      "@cleanup",
+      "WordPressProject\\composer\\ScriptHandler::createRequiredFiles"
     ],
     "test": [
       "phpcs"
