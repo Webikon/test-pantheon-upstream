@@ -1,27 +1,20 @@
 {
-  "name": "roots/bedrock",
+  "name": "webikon/test-pantheon-upstream",
   "type": "project",
   "license": "MIT",
   "description": "WordPress boilerplate with modern development tools, easier configuration, and an improved folder structure",
-  "homepage": "https://roots.io/bedrock/",
+  "homepage": "https://webikon.sk",
   "authors": [
     {
-      "name": "Scott Walkinshaw",
-      "email": "scott.walkinshaw@gmail.com",
-      "homepage": "https://github.com/swalkinshaw"
-    },
-    {
-      "name": "Ben Word",
-      "email": "ben@benword.com",
-      "homepage": "https://github.com/retlehs"
+      "name": "Ján Bočínec",
+      "email": "jan.bocinec@webikon.sk",
+      "homepage": "https://bocinec.sk"
     }
   ],
-  "keywords": [
-    "bedrock", "roots", "wordpress", "stack", "composer", "vagrant", "wp"
-  ],
   "support": {
-    "issues": "https://github.com/roots/bedrock/issues",
-    "forum": "https://discourse.roots.io/category/bedrock"
+    "source": "https://github.com/Webikon/test-pantheon-upstream",
+    "issues": "https://github.com/webikon/test-pantheon-upstream/issues",
+    "email": "support@webikon.sk"
   },
   "config": {
     "preferred-install": "dist"
@@ -39,6 +32,7 @@
     "johnpbloch/wordpress": "4.9.4",
     "oscarotero/env": "^1.1.0",
     "roots/wp-password-bcrypt": "1.0.0",
+
     "rvtraveller/qs-composer-installer": "^1.1",
     "wpackagist-plugin/pantheon-advanced-page-cache": "*",
     "wpackagist-plugin/wp-native-php-sessions": "0.*"
@@ -51,36 +45,12 @@
       "web/app/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
       "web/app/plugins/{$name}/": ["type:wordpress-plugin"],
       "web/app/themes/{$name}/": ["type:wordpress-theme"],
+
       "web/private/scripts/quicksilver/{$name}/": ["type:quicksilver-script"]
     },
     "wordpress-install-dir": "web/wp"
   },
-  "autoload": {
-    "classmap": [
-      "scripts/composer/ScriptHandler.php"
-    ]
-  },
   "scripts": {
-    "post-root-package-install": [
-      "php -r \"copy('.env.example', '.env');\""
-    ],
-    "cleanup": [
-      "./scripts/composer/cleanup-composer"
-    ],
-    "prepare-for-pantheon": "WordPressProject\\composer\\ScriptHandler::prepareForPantheon",
-    "post-install-cmd": [
-      "@cleanup",
-      "WordPressProject\\composer\\ScriptHandler::createRequiredFiles",
-      "php -r \"copy('.env.pantheon', '.env');\""
-    ],
-    "post-update-cmd": [
-      "@cleanup",
-      "WordPressProject\\composer\\ScriptHandler::createRequiredFiles"
-    ],
-    "post-create-project-cmd": [
-      "@cleanup",
-      "WordPressProject\\composer\\ScriptHandler::createRequiredFiles"
-    ],
     "test": [
       "phpcs"
     ]

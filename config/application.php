@@ -24,7 +24,7 @@ if (file_exists($root_dir . '/.env')) {
  * Set up our global environment constant and load its config first
  * Default: production
  */
-define('WP_ENV', env('WP_ENV') ?: 'production');
+define('WP_ENV', env('WP_ENV') ?: 'local');
 
 $env_config = __DIR__ . '/environments/' . WP_ENV . '.php';
 
